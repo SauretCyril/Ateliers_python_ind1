@@ -23,26 +23,26 @@ def capitalize(chaine):
 #----------------------------------------------------------------
 # Mettre en majuscule premiere lettre et lettre qui suit un . sans tenir compte des espace, mettre en minuscule 
 # les lettres qui doivent pas être en majuscule
-def cap(chaine,i):
+def cap(chaine, i=0):
     #on met tout en minuscule sauf la premiere lettre 
     if i==0:
         chaine=capitalize(chaine)
     index_point = chaine.find('.', i)
     
     if (index_point != -1) and (index_point < len(chaine)):
-        start_chaine=chaine[0:index_point+1 ]
-        end_chaine=chaine[index_point+1:len(chaine)]
+        start_chaine=chaine[0: index_point+1 ]
+        end_chaine = chaine[index_point+1: len(chaine)]
         new_chaineM = capitalize(end_chaine)
-        chaine=start_chaine+new_chaineM
-        chaine=cap(chaine,index_point+1)
+        chaine = start_chaine + new_chaineM
+        chaine = cap(chaine, index_point+1)
         
         newIndex = chaine.find('.', index_point) 
         if (newIndex != -1) and (newIndex < len(chaine)):
             return chaine 
     else:
-         return chaine  
+         return chaine
     
           
         
 
-print (cap(' chaine.   test, Ok,le Rire permet de vieillir moins vite. le petit poucet, EtaiT Petit',0))
+print(cap(' chaine.   test, Ok,le Rire permet de vieillir moins vite. le petit poucet, EtaiT Petit'))

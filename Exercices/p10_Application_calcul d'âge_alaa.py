@@ -7,30 +7,39 @@
  #      ▪ anniversaire < aujourdhui
 
 from datetime import date
-def calculer_age(date_naissance):
+
+def calculer_age(date_naissance: date):
+    """retourne l'age en année"""
     #yy=date_naissance.year
     aujourdhui = date.today()
+    
     anniversaire = date_naissance.replace(year=aujourdhui.year)
     if anniversaire < aujourdhui:
-        print(f"votre aniverssaire est :{anniversaire} vous avez {aujourdhui.year -date_naissance.year} ans")
+        # print(f"votre aniverssaire est :{anniversaire} vous avez {aujourdhui.year -date_naissance.year} ans")
+        return aujourdhui.year - date_naissance.year
     else:
-        print(f"votre aniverssaire est :{anniversaire} vous aurez {aujourdhui.year-1 -date_naissance.year} ans")
-        
+        # print(f"votre aniverssaire est :{anniversaire} vous aurez {aujourdhui.year-1 -date_naissance.year} ans")
+        return aujourdhui.year - date_naissance.year - 1
+
     
     
-def Ctrl_Format_Date( SToDate):
+def Ctrl_Format_Date(SToDate):
     one_date = SToDate['date']
-    nbSep = one_date.count("/")
+    nb_sep = one_date.count("/")
     format = one_date.split("/")
-    print(f"nbSep {nbSep} / len = {len(format)} -{format} -")
+    print(f"nb_sep {nb_sep} / len = {len(format)} -{format} -")
+    SToDate['date'] = None
     #peut on aller à la ligne sur une condition ?
-    if nbSep == 2 and len(format) == 3 and int(format[1]) <= 12 and int(format[1]) !=0  :
+    if nb_sep == 2 and len(format) == 3 and (int(format[1]) <= 12 and int(format[1] ) != 0 ):
         yy = format[2]
         mm = format[1]
         dd = format[0]
         #print(f"le {dd}/{mm}/{yy}" )
         SToDate['format_ok'] = True
-        SToDate['date'] = date(int(yy), int(mm), int(dd))
+        try:
+            SToDate['date'] = date(int(yy), int(mm), int(dd))
+        except ValueError:
+            SToDate['date'] = None
     return SToDate
 
 
@@ -38,8 +47,8 @@ SToDate = {'format_ok':False}
 isok = SToDate["format_ok"]
 while not isok:
     SToDate['date'] = input("Quel est votre date de naissance ('JJ/MM/YYYY') ?")
-    SToDate['format_ok']= Ctrl_Format_Date(SToDate)
+    SToDate['format_ok']= Ctrl_Format_Date(SToDate)['date']
     isok = SToDate["format_ok"]
 
 print(f"Vous êtes né(e) le {SToDate['date']}")
-calculer_age(SToDate['date'])
+print(f"votre age: {calculer_age(SToDate['date'])} ans.")
