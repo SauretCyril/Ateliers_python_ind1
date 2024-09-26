@@ -1,0 +1,3 @@
+Opening file: example.txt
+Writing to file: example.txt
+Closing file: example.txt
